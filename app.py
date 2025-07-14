@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = "YourSecretKey" 
 
 # MongoDB connection
-MONGO_URL = "mongodb+srv://admin:admin%40123@cluster0.lgp85.mongodb.net/"
+MONGO_URL = 
 client = MongoClient(MONGO_URL)
 db = client['total_records']
 records = db['register']
