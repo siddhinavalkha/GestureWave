@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Mode - GestureWave</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #232526, #414345);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #00c9ff;
+      margin-bottom: 20px;
+      text-shadow: 0px 4px 10px rgba(0, 201, 255, 0.8);
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #a0e3ff;
+      margin-bottom: 30px;
+    }
+
+    button,
+    #howToUseButton {
+      padding: 15px 30px;
+      font-size: 1rem;
+      background: linear-gradient(90deg, #00c9ff, #92fe9d);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 201, 255, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover,
+    #howToUseButton:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 6px 15px rgba(0, 201, 255, 0.6);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #a0e3ff;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #00c9ff;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #ffcc00;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* New How-to-Use Button */
+    #howToUseButton {
+      margin-top: 30px;
+      font-size: 1rem;
+      padding: 15px 30px;
+      background: linear-gradient(90deg, #00c9ff, #92fe9d);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 201, 255, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    }
+
+    .how-to-use {
+      margin-top: 30px;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      box-shadow: inset 0px 0px 10px rgba(0, 212, 255, 0.2);
+      text-align: left;
+      color: #d0e6ff;
+      display: none;
+    }
+
+    .how-to-use h2 {
+      color: #00c9ff;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .how-to-use ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .how-to-use li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .how-to-use li::before {
+      content: "👉";
+      position: absolute;
+      left: 0;
+      top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Basic Mode</h1>
+    <p>Effortlessly navigate with simple gesture controls.</p>
+
+    <!-- Start Mode Form -->
+    <form action="/basic_mode" method="POST">
+      <button type="submit">Start Basic Mode</button>
+    </form>
+
+    {% if message %}
+      <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <!-- How to Use Button -->
+    <button id="howToUseButton" onclick="toggleInfo()">📘 How to Use</button>
+
+    <!-- Gesture Instructions -->
+    <div class="how-to-use" id="howToUse">
+      <h2>How to Use - Basic Mode Gestures</h2>
+      <ul>
+        <li><strong>Move Cursor:</strong> Move your index finger while keeping others down.</li>
+        <li><strong>Left Click:</strong> Bring your index finger and thumb close together to pinch.</li>
+        <li><strong>Right Click:</strong> Pinch with your middle finger and thumb.</li>
+        <li><strong>Double Click:</strong> Tap index and thumb together twice quickly.</li>
+        <li><strong>Scroll:</strong> Move both index and middle fingers up/down simultaneously.</li>
+        <li><strong>Stop Cursor:</strong> Close your hand into a fist.</li>
+        <li><strong>Screenshot:</strong> Spread all fingers wide like a “hi-five” gesture.</li>
+      </ul>
+    </div>
+
+    <!-- Back Link -->
+    <a href="{{ url_for('virtual_mouse') }}" class="back-link">← Back to Virtual Mouse</a>
+  </div>
+
+  <script>
+    function toggleInfo() {
+      const section = document.getElementById('howToUse');
+      section.style.display = section.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!-- Updated Dashboard with GestureWave Standout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GestureWave</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #1e1f2f, #0d1b40);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 4px 10px rgba(0, 170, 255, 0.3);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00d4ff, #0084ff);
+            background-clip: text;
+            -webkit-background-clip: text; 
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 10px rgba(0, 212, 255, 0.6);
+            font-family: 'Poppins', sans-serif;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                text-shadow: 0px 0px 10px rgba(0, 212, 255, 0.6);
+            }
+            to {
+                text-shadow: 0px 0px 20px rgba(0, 132, 255, 0.8);
+            }
+        }
+
+
+        .logout-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            background: linear-gradient(90deg, #ff5757, #ff4040);
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 87, 87, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(90deg, #ff4040, #ff5757);
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(255, 87, 87, 0.6);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00aaff;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 15px rgba(0, 170, 255, 0.4);
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 25px rgba(0, 170, 255, 0.6);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: #00aaff;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #dddddd;
+        }
+
+        .feature-card button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            background: linear-gradient(90deg, #00aaff, #004e92);
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 170, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card button:hover {
+            background: linear-gradient(90deg, #004e92, #00aaff);
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(0, 170, 255, 0.6);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section with Logo and Logout -->
+    <div class="header">
+        <div class="logo">GestureWave</div>
+        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logout</button></a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Welcome, {{ name }}!</h1>
+        <p>You're now logged in. Explore the features below!</p>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Virtual Keyboard</h3>
+                <p>Use a gesture-based virtual keyboard to type without touching a physical device.</p>
+                <form action="{{ url_for('virtual_keyboard') }}" method="POST">
+                    <button type="submit">Open</button>
+                </form>
+            </div>
+
+            <div class="feature-card">
+                <h3>Virtual Mouse</h3>
+                <p>Control your cursor using hand gestures for seamless navigation.</p>
+                <form action="{{ url_for('virtual_mouse') }}" method="GET">
+                    <button type="submit">Open</button>
+                </form>
+            </div>
+
+            <div class="feature-card">
+                <h3>Virtual Assistant</h3>
+                <p>Interact with your devices using voice commands, chat commands, and smart AI assistance.</p>
+                <form action="{{ url_for('voice_assistant_base') }}" method="POST">
+                    <button type="submit">Open</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

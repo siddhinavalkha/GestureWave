@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation Mode - GestureWave</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #2b5876, #4e4376);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: auto;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff7e5f;
+            margin-bottom: 20px;
+            text-shadow: 0px 4px 10px rgba(255, 126, 95, 0.8);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #f5e6e8;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 126, 95, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(255, 126, 95, 0.6);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #f5e6e8;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #ff7e5f;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #00ff99;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .toggle-button {
+            margin-top: 30px;
+            padding: 10px 25px;
+            font-size: 1rem;
+            background-color: #ffffff;
+            color: #4e4376;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .how-to-use {
+            display: none;
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            color: #ffffff;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .how-to-use h2 {
+            font-size: 1.6rem;
+            color: #ffcc99;
+            margin-bottom: 15px;
+        }
+
+        .how-to-use ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .how-to-use li {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .how-to-use li span {
+            color: #ffcc66;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        function toggleHowToUse() {
+            var section = document.getElementById('howToUse');
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Presentation Mode</h1>
+        <p>Control your presentations with intuitive hand gestures.</p>
+
+        <!-- Form to trigger Presentation Mode -->
+        <form method="POST">
+            <button type="submit">Start Now</button>
+        </form>
+
+        <!-- Display Flask message if present -->
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <!-- Toggle How to Use Section -->
+        <button class="toggle-button" onclick="toggleHowToUse()">📘 How to Use</button>
+
+        <div id="howToUse" class="how-to-use">
+            <h2>Available Gestures:</h2>
+            <ul>
+                <li><span>👉 Swipe Left (Thumb up)</span> - Move to the <strong>previous slide</strong>.</li>
+                <li><span>👉 Swipe Right (Pinky finger up)</span> - Move to the <strong>next slide</strong>.</li>
+                <li><span>✌️ Show Pointer (Index + Middle finger up)</span> - Display a <strong>red pointer</strong> on the screen.</li>
+                <li><span>👉 Draw on Slide (Only Index finger up)</span> - Start or continue <strong>drawing annotations</strong> on the slide.</li>
+                <li><span>🤟 Erase Drawing (Index + Middle + Ring fingers up)</span> - <strong>Erase the most recent annotation</strong>.</li>
+            </ul>
+        </div>
+
+        <!-- Back to Dashboard -->
+        <a href="{{ url_for('virtual_mouse') }}" class="back-link">← Back to Virtual Mouse</a>
+    </div>
+</body>
+
+</html>

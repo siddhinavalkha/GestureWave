@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Assistant - GestureWave</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: radial-gradient(circle at center, #1c1c3c, #090916);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      overflow-y: auto;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0px 6px 12px rgba(0, 255, 255, 0.7);
+    }
+
+    .microphone {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.9), 0 0 50px rgba(0, 255, 255, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      animation: pulse 1.8s infinite alternate;
+    }
+
+    .microphone img {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+    }
+
+    .instruction {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    .start-btn,
+    .stop-btn,
+    .how-btn {
+      margin-top: 1.5rem;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      background: linear-gradient(90deg, #00c9ff, #92fe9d);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-inline: 10px;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #a0e3ff;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #00c9ff;
+    }
+
+    .status-message {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #ffcc00;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .how-to-use {
+      display: none;
+      margin-top: 30px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .how-to-use h2 {
+      color: #00e0ff;
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+
+    .how-to-use ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+
+    .how-to-use li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+
+    .how-to-use li span {
+      font-weight: bold;
+      color: #ffcc66;
+    }
+
+    code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: #a0d9d6;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.05);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="title">Voice Assistant</h1>
+
+    <div class="microphone">
+      <img src="{{ url_for('static', filename='assets/image2.gif') }}" alt="Microphone Icon">
+    </div>
+
+    <p class="instruction">Speak to interact with your assistant</p>
+
+    <!-- Start Assistant -->
+    <form method="POST" style="display:inline;">
+      <input type="hidden" name="start" value="true">
+      <button type="submit" class="start-btn">Start Voice Assistant</button>
+    </form>
+
+    <!-- Stop Assistant -->
+    <form method="POST" style="display:inline;">
+      <input type="hidden" name="stop" value="true">
+      <button type="submit" class="stop-btn">Stop Voice Assistant</button>
+    </form>
+
+    <!-- How to Use -->
+    <button onclick="toggleHowToUse()" class="how-btn">How to Use?</button>
+
+    {% if message %}
+    <p class="status-message">{{ message }}</p>
+    {% endif %}
+
+    <!-- Updated Command Guide -->
+    <div id="howToUse" class="how-to-use">
+      <h2>Voice Assistant Commands Guide</h2>
+      <ul>
+        <li><span>🧠 General Info:</span> "What is AI?" / "Define gravity"</li>
+        <li><span>🕒 Time:</span> "What time is it?"</li>
+        <li><span>📅 Date:</span> "What's the date today?"</li>
+        <li><span>📰 Wikipedia:</span> "Search Albert Einstein on Wikipedia"</li>
+        <li><span>🌐 Translate:</span> "Translate hello to Spanish"</li>
+        <li><span>😄 Joke:</span> "Tell me a joke"</li>
+        <li><span>🔋 Battery Status:</span> "What's the battery level?"</li>
+        <li><span>🔉 Volume Control:</span> "Increase volume" / "Decrease volume"</li>
+        <li><span>🛑 Stop Command:</span> "Stop" — halts actions like music, alarms, or Wikipedia responses</li>
+        <li><span>🖱️ Virtual Mouse Mode:</span> "Open virtual mouse"</li>
+        <li><span>⌨️ Virtual Keyboard Mode:</span> "Open virtual keyboard"</li>
+        <li><span>❌ Exit:</span> "Exit" / "Close assistant"</li>
+      </ul>
+    </div>
+
+    <!-- Back to Dashboard -->
+    <a href="{{ url_for('voice_assistant_base') }}" class="back-link">← Back to Virtual Assistant</a>
+  </div>
+
+  <script>
+    function toggleHowToUse() {
+      const howSection = document.getElementById('howToUse');
+      howSection.style.display = (howSection.style.display === "block") ? "none" : "block";
+    }
+  </script>
+</body>
+
+</html>

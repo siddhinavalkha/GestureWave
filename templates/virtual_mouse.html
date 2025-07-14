@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Mouse Modes - GestureWave</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e1f2f 40%, #0d1b40);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            text-shadow: 0px 4px 10px rgba(0, 212, 255, 0.8);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #b0c4de;
+            margin-bottom: 40px;
+        }
+
+        .modes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .mode-card {
+            background: linear-gradient(135deg, #1f2d47, #243b63);
+            border-radius: 15px;
+            width: 300px;
+            height: 200px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5), inset 0px 0px 10px rgba(0, 212, 255, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.6), inset 0px 0px 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .mode-card h2 {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-top: 20px;
+            text-shadow: 0px 2px 5px rgba(0, 212, 255, 0.7);
+        }
+
+        .mode-card p {
+            font-size: 1rem;
+            color: #d0e6ff;
+            margin: 10px 20px 20px;
+        }
+
+        .mode-card button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #005a92);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 212, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .mode-card button:hover {
+            background: linear-gradient(90deg, #005a92, #00d4ff);
+            box-shadow: 0px 6px 15px rgba(0, 212, 255, 0.6);
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating neon particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(0, 212, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(0, 212, 255, 1);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #005a92);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 212, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background: linear-gradient(90deg, #005a92, #00d4ff);
+            box-shadow: 0px 6px 15px rgba(0, 212, 255, 0.6);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <div class="back-button">
+        <button onclick="window.location.href='/dashboard'">← Back to Dashboard</button>
+    </div>
+
+    <div class="container">
+        <h1>Choose Your Virtual Mouse Mode</h1>
+        <p>Select the mode that best suits your needs!</p>
+        <div class="modes">
+            <!-- Presentation Mode Card -->
+            <div class="mode-card">
+                <h2>Presentation Mode</h2>
+                <p>Seamlessly control your presentations with intuitive gestures.</p>
+                <button onclick="window.location.href='/presentation_mode'">Select Mode</button>
+            </div>
+
+            <!-- Gaming Mode Card -->
+            <div class="mode-card">
+                <h2>Gaming Mode</h2>
+                <p>Experience next-level gaming with precision gesture control.</p>
+                <button onclick="window.location.href='/gaming_mode'">Select Mode</button>
+            </div>
+
+            <!-- Basic Mode Card -->
+            <div class="mode-card">
+                <h2>Basic Mode</h2>
+                <p>Navigate your system with simple and effective gestures.</p>
+                <button onclick="window.location.href='/basic_mode'">Select Mode</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generating floating neon particles dynamically -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const particleCount = 25;
+            for (let i = 0; i < particleCount; i++) {
+                let particle = document.createElement("div");
+                particle.classList.add("particle");
+                document.body.appendChild(particle);
+                
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.animationDuration = `${3 + Math.random() * 2}s`;
+                particle.style.animationDelay = `${Math.random() * 3}s`;
+            }
+        });
+    </script>
+</body>
+</html>

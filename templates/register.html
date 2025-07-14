@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - GestureWave</title>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #1e1f2f, #0d1b40);
+            background-size: cover;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Video */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        /* Particle Animation */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glassmorphism Effect */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 25px rgba(0, 170, 255, 0.6);
+            width: 400px;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00aaff;
+            margin-bottom: 1rem;
+            text-shadow: 0px 0px 15px rgba(0, 170, 255, 0.7);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0px 0px 8px rgba(0, 170, 255, 0.4);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 0px 15px rgba(0, 170, 255, 0.8);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            padding: 12px;
+            font-size: 1.2rem;
+            border: none;
+            background: linear-gradient(90deg, #00aaff, #004e92);
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 170, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #004e92, #00aaff);
+            transform: scale(1.05);
+            box-shadow: 0px 6px 18px rgba(0, 170, 255, 0.7);
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #ff5757;
+        }
+
+        .login-text {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #dddddd;
+        }
+
+        .login-text a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video class="video-bg" autoplay loop muted>
+        <source src="static/assets/face-detection.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Particle Animation -->
+    <div id="particles-js"></div>
+
+    <!-- Registration Form -->
+    <div class="container">
+        <h1>Register</h1>
+        <form method="POST" action="">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <p class="login-text">
+            Already registered? <a href="{{ url_for('login') }}">Login here</a>.
+        </p>
+    </div>
+
+    <!-- Particles.js Config -->
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00aaff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#00aaff", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>

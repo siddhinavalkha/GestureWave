@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaming Mode - GestureWave</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+      max-width: 800px;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #26a69a;
+      margin-bottom: 20px;
+      text-shadow: 0px 4px 10px rgba(38, 166, 154, 0.8);
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #a0d9d6;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1rem;
+      background: linear-gradient(90deg, #26a69a, #2b7a78);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(38, 166, 154, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 6px 15px rgba(38, 166, 154, 0.6);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #a0d9d6;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #26a69a;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #ffcc00;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .how-to-use {
+      display: none;
+      margin-top: 40px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .how-to-use h2 {
+      color: #26a69a;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .how-to-use ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+    }
+
+    .how-to-use li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #ffffff;
+    }
+
+    .how-to-use li span {
+      font-weight: bold;
+      color: #ffcc66;
+    }
+
+    code {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 3px 6px;
+      border-radius: 5px;
+      color: #a0d9d6;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Gaming Mode</h1>
+    <p>Enjoy precise gesture controls for an enhanced gaming experience.</p>
+
+    <!-- Start Gaming Button - Triggers Flask Route -->
+    <form method="POST" action="/gaming_mode" style="display: inline;">
+      <button type="submit">Start Gaming</button>
+    </form>
+
+    <!-- How to Use Button -->
+    <button onclick="toggleHowToUse()">How to Use?</button>
+
+    <!-- Display message from Flask -->
+    {% if message %}
+    <div class="message">{{ message }}</div>
+    {% endif %}
+
+    <!-- Gesture Instructions -->
+    <div id="howToUse" class="how-to-use">
+      <h2>Gaming Gestures Guide:</h2>
+      <ul>
+        <li><span>✊ 0 Fingers (Fist)</span> – Move Down <code>[↓]</code></li>
+        <li><span>👆 1 Finger (Index Up)</span> – Jump or Move Up <code>[↑]</code></li>
+        <li><span>🖖 4 Fingers (No Thumb)</span> – Move Left <code>[←]</code></li>
+        <li><span>🖐 5 Fingers (Open Palm)</span> – Move Right <code>[→]</code></li>
+      </ul>
+      <p style="margin-top:20px; color:#a0d9d6;">
+        Hold your hand steadily in front of the camera. Your gesture will be recognized and the matching in-game action will be triggered in real time.
+      </p>
+      <p style="margin-top:10px; font-size:0.9rem; color:#ffcc66;">
+        Press <strong>Q</strong> anytime to exit the gaming mode.
+      </p>
+    </div>
+
+    <!-- Back to Dashboard -->
+    <a href="{{ url_for('virtual_mouse') }}" class="back-link">← Back to Virtual Mouse</a>
+  </div>
+
+  <script>
+    function toggleHowToUse() {
+      const instructions = document.getElementById('howToUse');
+      if (instructions.style.display === "none" || instructions.style.display === "") {
+        instructions.style.display = "block";
+      } else {
+        instructions.style.display = "none";
+      }
+    }
+  </script>
+</body>
+
+</html>

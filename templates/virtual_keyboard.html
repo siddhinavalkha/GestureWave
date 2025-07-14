@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard - GestureWave</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e1f2f 40%, #0d1b40);
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .container {
+            animation: fadeIn 1.2s ease-in-out;
+            padding: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1f2d47, #243b63);
+            backdrop-filter: blur(15px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5), inset 0px 0px 10px rgba(0, 212, 255, 0.3);
+            max-width: 500px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            text-shadow: 0px 2px 10px rgba(0, 212, 255, 0.8);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #a8c7ff;
+            margin-bottom: 25px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #005a92);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0px 0px 8px rgba(0, 201, 255, 0.8);
+            box-shadow: 0px 0px 15px rgba(0, 201, 255, 0.5);
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #005a92, #00d4ff);
+            transform: scale(1.1);
+            box-shadow: 0px 6px 20px rgba(0, 212, 255, 0.8);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #005a92);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 212, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background: linear-gradient(90deg, #005a92, #00d4ff);
+            box-shadow: 0px 6px 15px rgba(0, 212, 255, 0.6);
+            transform: scale(1.1);
+        }
+
+        .toggle-howto-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d4ff, #005a92);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 0px 12px rgba(0, 212, 255, 0.5);
+        }
+
+        .toggle-howto-btn:hover {
+            background: linear-gradient(90deg, #005a92, #00d4ff);
+            transform: scale(1.05);
+            box-shadow: 0px 5px 15px rgba(0, 212, 255, 0.7);
+        }
+
+        .how-to-use {
+            display: none;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: inset 0px 0px 10px rgba(0, 212, 255, 0.2);
+            text-align: left;
+            color: #d0e6ff;
+        }
+
+        .how-to-use h2 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .how-to-use ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .how-to-use li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .how-to-use li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #92fe9d;
+        }
+
+        /* Floating neon particles */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(0, 212, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: 0px 0px 15px rgba(0, 212, 255, 1);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-50px);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back-button">
+        <button onclick="window.location.href='/dashboard'">← Back to Dashboard</button>
+    </div>
+
+    <div class="container">
+        <h1>Virtual Keyboard Mode</h1>
+        <p>Control your system using gesture-based typing.</p>
+
+        <form method="POST">
+            <input type="hidden" name="start" value="true">
+            <button type="submit">Start Now</button>
+        </form>
+
+        <button class="toggle-howto-btn" onclick="toggleHowToUse()">How to Use</button>
+
+        <div class="how-to-use" id="howToUseSection">
+            <h2>How to Use</h2>
+            <ul>
+                <li><strong>Step 1:</strong> Position your hand in front of your webcam.</li>
+                <li><strong>Step 2:</strong> Move your index finger to hover over the virtual keyboard keys.</li>
+                <li><strong>Step 3:</strong> Pinch your index and thumb together to simulate a key press.</li>
+                <li><strong>Step 4:</strong> The key will be typed in your active window (e.g., Notepad).</li>
+                <li><strong>Step 5:</strong> Use the on-screen textbox to search or verify keystrokes (optional).</li>
+            </ul>
+        </div>
+
+        {% if message %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Floating neon particles + toggle script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const particleCount = 25;
+            for (let i = 0; i < particleCount; i++) {
+                let particle = document.createElement("div");
+                particle.classList.add("particle");
+                document.body.appendChild(particle);
+
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.animationDuration = `${3 + Math.random() * 2}s`;
+                particle.style.animationDelay = `${Math.random() * 3}s`;
+            }
+        });
+
+        function toggleHowToUse() {
+            const section = document.getElementById("howToUseSection");
+            section.style.display = section.style.display === "none" || section.style.display === "" ? "block" : "none";
+        }
+    </script>
+</body>
+
+</html>
